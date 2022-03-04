@@ -1,0 +1,68 @@
+{
+  "name": "movie-fads",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./client/index.js",
+  "scripts": {
+    "start": "nodemon server/server.js",
+    "build": "NODE_ENV=production webpack",
+    "dev": "NODE_ENV=development webpack serve --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/star-nosed-mole-7/movie-fads.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/star-nosed-mole-7/movie-fads/issues"
+  },
+  "homepage": "https://github.com/star-nosed-mole-7/movie-fads#readme",
+  "dependencies": {
+    "@babel/plugin-transform-async-to-generator": "^7.1.0",
+    "@babel/runtime": "^7.1.2",
+    "express": "^4.16.3",
+    "node-fetch": "^3.2.0",
+    "node-sass": "^6.0.1",
+    "prop-types": "^15.6.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "react-redux": "^7.2.6",
+    "react-router": "^6.2.2",
+    "react-router-dom": "^6.2.2",
+    "react-test-utils": "^0.0.1",
+    "redux": "^4.1.2",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.3",
+    "concurrently": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.6.0",
+    "eslint": "^8.10.0",
+    "eslint-plugin-react": "^7.29.2",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "node-polyfill-webpack-plugin": "^1.1.4",
+    "nodemon": "^2.0.15",
+    "sass": "^1.49.9",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4",
+    "webpack-hot-middleware": "^2.25.1",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "nodemonConfig": {
+    "ignore": []
+  }
+}
