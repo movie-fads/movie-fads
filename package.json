@@ -22,7 +22,10 @@
   "dependencies": {
     "@babel/plugin-transform-async-to-generator": "^7.1.0",
     "@babel/runtime": "^7.1.2",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
+    "mongo": "^0.1.0",
+    "mongodb": "^4.4.1",
+    "mongoose": "^6.2.4",
     "node-fetch": "^3.2.0",
     "node-sass": "^6.0.1",
     "prop-types": "^15.6.2",
