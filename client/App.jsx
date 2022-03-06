@@ -1,13 +1,16 @@
 import React from 'react';
-import Poster from './components/Poster.jsx';
-import Buttons from './components/Buttons.jsx';
-import MediaCard from './components/MediaCard.jsx';
+import CardContainer from './containers/CardContainer.jsx';
 
 const App = () => {
   return(
    <div> 
-     <h1>hello world</h1>
-     <MediaCard title="jaws" />
+     <h1>movie-fads</h1>
+     <h2>watchlist</h2>
+     <CardContainer />
+     <h2>favorites</h2>
+     <CardContainer />
+     <h2>recently watched</h2>
+     <CardContainer />
    </div>
   );
 };

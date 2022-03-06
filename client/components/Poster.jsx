@@ -7,7 +7,7 @@ const Poster = props =>  {
   let [OriginalTitle, setOriginalTitle] = useState(null);
   let [setConfigData] = useState('');
   let [BaseURL] = useState('https://api.themoviedb.org/3/');
-  let [PosterSize] = useState('w154');
+  let [PosterSize] = useState('w92');
   
 useEffect(() => {
   let configUrl = ''.concat(BaseURL, 'configuration?api_key=', privateVars.apiKey);
@@ -27,13 +27,11 @@ useEffect(() => {
       console.log(data);
     });
   },[]);
-  
-return (
-  <div>
-    <h2>Poster Component</h2>
-    <img src={BaseImageURL + PosterSize + PosterPath} alt={"jaws"} />
-    <h3>{OriginalTitle}</h3>
 
+return (
+  <div className='picTitle'>
+    <img className='moviePic' src={BaseImageURL + PosterSize + PosterPath} alt={OriginalTitle}/>
+    <h3>{OriginalTitle}</h3>
   </div>    
 );
 }

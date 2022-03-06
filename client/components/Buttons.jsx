@@ -8,7 +8,7 @@ const Buttons = (props) =>{
   if(props.button3) buttons.push(<button type="button" onClick = {console.log('')}> {props.button3}</button>)
 
   return(
-    <div>
+    <div >
       {buttons}
     </div>
   );
