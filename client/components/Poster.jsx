@@ -1,50 +1,45 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import * as privateVars from '../constants/private.js'
-const Poster = props => {
+const Poster = props =>  {
+  let [BaseURL, setBaseURl] = useState('https://api.themoviedb.org/3/');
+  let [ConfigData, setConfigData] = useState(null);
+  let [BaseImageURL, setBaseImageURL] = useState(null);
+  let [ImageURL, setImageURL] = useState('');
+  let [PosterSize, setPosterSize] = useState('w92');
+  let [PosterPath, setPosterPath] = useState('');
   
-    let baseURL = 'https://api.themoviedb.org/3/';
-    let configData = null;
-    let baseImageURL = null;
-    let imageURL = 'hello';
-    console.log('first image url', imageURL)
-    let posterSize = 'w92';
+useEffect(() => {
+    let configUrl = ''.concat(BaseURL, 'configuration?api_key=', privateVars.apiKey);
+    console.log('configURL', configUrl)
+    fetch(configUrl)
+    .then(result => {
+      console.log('Result 1', result)
+      return result.json();
+    })
+    .then(data =>{
+      console.log('Data 1', data);
+      setBaseImageURL(data.images.secure_base_url);
+      setImageURL(''.concat(BaseImageURL,PosterSize));
+      console.log('ImageURL999', ImageURL)
+      setConfigData(data.images);
+      console.log('Here');
+    });
+    let url = ''.concat(BaseURL,'search/movie?api_key=', privateVars.apiKey, '&query=', 'jaws');
+    fetch(url)
+    .then(result => result.json())
+    .then (data => {
+      console.log('dta9999', data)
+      setPosterPath(data.results[0].poster_path);
+      setImageURL(ImageURL  + PosterPath);
+    });
+  },[]);
+  console.log('imageURL1', ImageURL)
 
-    let getConfig = function(keyword = 'jaws'){
-      let url = ''.concat(baseURL, 'configuration?api_key=', privateVars.apiKey);
-      fetch(url)
-      .then((result) => {
-          console.log('first fetch result', result)
-          return result.json();
-       })
-       .then((data)=>{
-         baseImageURL = data.images.secure_base_url;
-         imageURL += baseImageURL + posterSize;
-         configData = data.images;
-         return runSearch(keyword)
-       })
-       .catch(function(err){console.log(err)});
-    }
-    
-    // console.log(getConfig());
-    
-    let runSearch = function(keyword){
-      let url=''.concat(baseURL,'search/movie?api_key=', privateVars.apiKey, '&query=', keyword);
-      fetch(url)
-        .then(result => result.json())
-        .then((data) => {
-           console.log(data);
-           const posterPath = data.results[0].poster_path;
-           return imageURL += posterPath;      
-        })
-    }
-
-    getConfig()
-    console.log('last image URL', imageURL)
     return (
      <div>
        <h2>Poster Component</h2>
-       <img src={imageURL} alt={"jaws"} />
+       <img src={BaseImageURL + PosterSize + PosterPath} alt={"jaws"} />
      </div>    
     );
 }
-export default Poster
+export default Poster;
