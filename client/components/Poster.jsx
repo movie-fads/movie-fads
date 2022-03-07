@@ -9,6 +9,8 @@ const Poster = (props) => {
   let [BaseURL] = useState('https://api.themoviedb.org/3/');
   let [PosterSize] = useState('w92');
 
+  //! Will want to move this function into an action and mapDispatchToProps
+  //! Instead of define within useEffect itself
   useEffect(() => {
     let configUrl = ''.concat(
       BaseURL,

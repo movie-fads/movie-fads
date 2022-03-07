@@ -7,7 +7,7 @@ const CardContainer = (props) => {
  for(let i = 0; i < props.movieList.length; i++){
    movies.push(<MediaCard key={`movieList${i}`} tmdbId={props.movieList[i].TMDBid}/>)
  }
-  return <div className="card-container">{movies}</div>;
+ return <div className="card-container">{movies}</div>;
 };
 
 export default CardContainer;

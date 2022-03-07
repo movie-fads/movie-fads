@@ -1,6 +1,5 @@
 import * as types from '../constants/actionTypes.js';
 
-//accessible in mapStateToProps by using state.lists.
 const initialState = {
   currentUserID: null,
   userInViewID: null,

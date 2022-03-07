@@ -1,5 +1,6 @@
 import React from 'react';
-
+//! Buttons need on click functions
+//! Functions will dispatch actoins, through mapDispatchToProps
 const Buttons = (props) => {
   const buttons = [];
   if (props.button1)
