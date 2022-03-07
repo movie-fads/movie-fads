@@ -24,7 +24,7 @@ useEffect(() => {
     .then (data => {
       setPosterPath(data.poster_path)
       setOriginalTitle(data.original_title)
-      console.log(data);
+      // console.log(data);
     });
   },[]);
 
