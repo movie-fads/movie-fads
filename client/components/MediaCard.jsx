@@ -4,9 +4,6 @@ import Buttons from './Buttons.jsx';
 
 
 const MediaCard = (props) => {
-  function greetUser() {
-    console.log("Hi there, user!");
-  }
   return(
    <div className='mediaCard' >
     <div className='poster' onClick={() => window.open(`https://www.themoviedb.org/movie/${props.tmdbId}`)} className='mediaCard'>
