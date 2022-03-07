@@ -42,7 +42,7 @@ app.put('/:username', userController.addMedia, (req, res) => {
   return res.status(200).json(res.locals.addedMedia);
 });
 
-app.put('/favChange/:username', userController.updateMedia, (req, res) => {
+app.put('/changeMedia/:username', userController.updateMedia, (req, res) => {
   return res.status(200).json(res.locals.updatedMedia);
 });
 

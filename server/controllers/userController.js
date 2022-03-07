@@ -57,17 +57,26 @@ const userController = {
 
   {
     TMDBId: 12
-    watchHistory: false
+    haveSeen: false
     toWatch: true
-    favStatus: true
+    fav: true
   }
  
     */
   async addMedia(req, res, next) {
+    //req.body is { TMDBid: 70, fav: true }
     try {
+      const template = {
+        TMDBid: req.body.TMDBid,
+        haveSeen: false,
+        toWatch: false,
+        fav: false,
+      };
+      template[Object.keys(req.body)[1]] = true;
+
       const result = await UserDb.updateOne(
         { username: req.params.username },
-        { $push: { arrMediaObj: req.body.arrMediaObj } }
+        { $push: { arrMediaObj: template } }
       );
       res.locals.addedMedia = result;
       return next();
@@ -89,24 +98,47 @@ const userController = {
   /*
   {
     TMDBid: 70,
+    toWatch: true,
+    haveSeen: true,
     fav: true, 
 
   }
    */
+  // { fav: true }
 
   async updateMedia(req, res, next) {
+    // { TMDBid: 70, fav: true }
     try {
-      // const placeHolder = req.body.movie;
-      // placeHolder.favStatus = !placeHolder.favStatus;
+      let result;
 
-      const result = await UserDb.updateOne(
-        {
-          username: req.params.username,
-          arrMediaObj: { $elemMatch: { TMDBid: { $eq: req.body.TMDBid } } },
-        },
+      if (req.body.hasOwnProperty('fav')) {
+        result = await UserDb.updateOne(
+          {
+            username: req.params.username,
+            arrMediaObj: { $elemMatch: { TMDBid: { $eq: req.body.TMDBid } } },
+          },
 
-        { $set: { 'arrMediaObj.$.fav': req.body.fav } }
-      );
+          { $set: { 'arrMediaObj.$.fav': req.body.fav } }
+        );
+      } else if (req.body.hasOwnProperty('toWatch')) {
+        result = await UserDb.updateOne(
+          {
+            username: req.params.username,
+            arrMediaObj: { $elemMatch: { TMDBid: { $eq: req.body.TMDBid } } },
+          },
+
+          { $set: { 'arrMediaObj.$.toWatch': req.body.toWatch } }
+        );
+      } else if (req.body.hasOwnProperty('haveSeen')) {
+        result = await UserDb.updateOne(
+          {
+            username: req.params.username,
+            arrMediaObj: { $elemMatch: { TMDBid: { $eq: req.body.TMDBid } } },
+          },
+
+          { $set: { 'arrMediaObj.$.haveSeen': req.body.haveSeen } }
+        );
+      }
       res.locals.updatedMedia = result;
       return next();
     } catch (err) {
