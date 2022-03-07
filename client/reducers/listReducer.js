@@ -5,7 +5,11 @@ const initialState = {
     currentUserID: null,
     userInViewID: null,
     isBrowsing: false,
-    userMovieArray: [],
+    userMovieArray: [
+        {TMDBid: 578, fav: true, toWatch: false, haveSeen: true},
+        {TMDBid: 24, fav: false, toWatch: true, haveSeen: false},
+        {TMDBid: 218, fav: false, toWatch: false, haveSeen: true},
+    ],
     userFriendsList: [],
 };
 
@@ -22,6 +26,7 @@ const listReducer = (state = initialState, action) => {
         };
         default: {
             console.log('returning default state')
+            console.log(state)
             return state;
           }
     };

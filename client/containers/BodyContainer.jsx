@@ -1,26 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import CardContainer from './CardContainer.jsx';
 
+const mapStateToProps = state => ({
+  movieList: state.lists.userMovieArray,
+});
+
 const BodyContainer = () => {
-
-   const mapStateToProps = (state) => {
-    const  userMovieArray  = state;
-    return { movieList : userMovieArray}
-   }
- 
-  console.log(mapStateToProps.movieList);
-
   return(
    <div> 
      <h1>movie-fads</h1>
      <h2>watchlist</h2>
-     <CardContainer movieList={[578, 24, 218, 106646, 11886]} />
+     <CardContainer movieList={props.movieList.filter(movie => movie.toWatch === true)} />
      <h2>favorites</h2>
-     <CardContainer movieList={[578, 22, 217, 106640, 11886]} />
+     <CardContainer movieList={props.movieList.filter(movie => movie.fav === true)} />
      <h2>recently watched</h2>
-     <CardContainer movieList={[573, 24, 218, 10663, 11880]}/>
+     <CardContainer movieList={props.movieList.filter(movie => movie.haveSeen === true)}/>
    </div>
   );
 };
 
-export default BodyContainer;
+export default connect(mapStateToProps, null) (BodyContainer);

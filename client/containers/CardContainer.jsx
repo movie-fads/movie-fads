@@ -6,9 +6,8 @@ import MediaCard from '../components/MediaCard.jsx';
 // })
 //[578, 24, 218, 106646, 11886]
 const CardContainer = (props) => { 
- const  movieList  = props.movieList;
  const movies = [];
- for(let i = 0; i < movieList.length; i++){
+ for(let i = 0; i < props.movieList.length; i++){
    movies.push(<MediaCard key={`movieList${i}`} tmdbId={movieList[i]}/>)
  }
 
