@@ -5,7 +5,7 @@ const path = require('path');
 const PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../build')))
+app.use(express.static(path.join(__dirname, '../build')));
 
 const userController = require('./controllers/userController.js');
 
@@ -20,7 +20,6 @@ mongoose
   })
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.log(err));
-
 
 // ROUTE HANDLERS
 //add POST USER endpoint to add new user to database
