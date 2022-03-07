@@ -2,7 +2,7 @@
   "name": "movie-fads",
   "version": "1.0.0",
   "description": "",
-  "main": "./client/index.js",
+  "main": "index.js",
   "scripts": {
     "start": "nodemon server/server.js",
     "build": "NODE_ENV=production webpack",

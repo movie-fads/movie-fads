@@ -1,0 +1,53 @@
+body{
+  background-color: red;
+
+}
+
+.cardContainer{
+  display: flex;
+  gap: 10px;
+  flex-wrap:wrap;
+  border-style: solid;
+
+}
+
+.mediaCard{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width:150px;
+  height:250px;
+  box-shadow: 2px 2px 2px 2px;
+
+  background-color:lightpink;
+}
+
+.moviePic{
+  
+  width:92px
+}
+
+button{
+ width: 50px;
+ font-size: 4px;
+ border-style: solid;
+}
+.buttons{
+    display:flex;
+    flex-direction: row;
+    width: 150px;
+    height: 25px;
+    border-radius: 10px;
+    font-size: 4px;
+    background-color: lightgreen;
+
+    
+   }
+
+   .picTitle{
+     display:flex;
+     flex-direction:column;
+     align-items: center;
+
+   }
