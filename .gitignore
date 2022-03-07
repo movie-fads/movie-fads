@@ -106,3 +106,4 @@ dist
 build/*
 package-lock.json
 dump/*
+client/constants/private.js

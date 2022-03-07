@@ -7,16 +7,6 @@ const initialState = {
   isBrowsing: false,
   userMovieArray: [],
   userFriendsList: [],
-  //   [
-  //     {TMDBid: 578, fav: true, toWatch: false, haveSeen: true},
-  //     {TMDBid: 24, fav: false, toWatch: true, haveSeen: false},
-  //     {TMDBid: 218, fav: false, toWatch: false, haveSeen: true},
-  //     {TMDBid: 156022, fav: true, toWatch: true, haveSeen: true},
-  //     {TMDBid: 1542, fav: true, toWatch: false, haveSeen: true},
-  //     {TMDBid: 17949, fav: false, toWatch: false, haveSeen: true},
-  //     {TMDBid: 1895, fav: true, toWatch: false, haveSeen: true},
-  //     {TMDBid: 857, fav: false, toWatch: true, haveSeen: false},
-  // ]
 };
 
 const listReducer = (state = initialState, action) => {

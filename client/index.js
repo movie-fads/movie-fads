@@ -9,7 +9,6 @@ import styles from './styles/styles.css'
 const store = createStore(
   reducers,
   applyMiddleware(thunk),
-  //composeWithDevTools(),
 );
 
 render(
