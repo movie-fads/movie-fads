@@ -6,10 +6,11 @@ const mapStateToProps = state => ({
   movieList: state.lists.userMovieArray,
 });
 
-const BodyContainer = () => {
+const BodyContainer = (props) => {
+  console.log('rendering body container', props.movieList)
   return(
-   <div> 
-     <h1>movie-fads</h1>
+   <div id= 'body-container'> 
+     <h1>body container</h1>
      <h2>watchlist</h2>
      <CardContainer movieList={props.movieList.filter(movie => movie.toWatch === true)} />
      <h2>favorites</h2>

@@ -4,7 +4,9 @@ import BodyContainer from './BodyContainer.jsx';
 const MainContainer = (props) => {
   return(
    //HeadContainer component goes here
-   <BodyContainer />
+   <div id='main-container'>
+     <BodyContainer />
+   </div>
    //FooterContainer component goes here
   );
 }
