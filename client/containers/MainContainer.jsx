@@ -14,7 +14,8 @@ const MainContainer = (props) => {
   }, []);
   return (
     //HeadContainer component goes here
-    <div id="main-container">
+    <div className="main-container">
+      <h1>Movie Fads</h1>
       <BodyContainer />
     </div>
     //FooterContainer component goes here

@@ -1,53 +1,119 @@
-body{
-  background-color: red;
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;300;400;500;700;800;900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
+.textinput {
+  border: none;
+  outline: none;
+  font-family: 'M PLUS 1p', sans-serif;
 }
 
-.cardContainer{
+body {
+  font-family: 'M PLUS 1p', sans-serif;
+}
+
+.main-container {
+  background-color: rgba(239, 159, 247, 0.116);
+}
+
+.main-container h1 {
+  text-align: center;
+  color: rgb(71, 71, 71);
+}
+
+.body-container {
   display: flex;
-  gap: 10px;
-  flex-wrap:wrap;
-  border-style: solid;
-
+  flex-direction: column;
+  align-items: center;
+  color: rgb(56, 56, 56);
+  /* grid-template-rows: repeat(auto-fill, min(280px)); */
 }
 
-.mediaCard{
-  display:flex;
+.body-container h2 {
+  margin-top: 3em;
+  font-size: 1.1em;
+  text-align: center;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  padding: 10px;
+  font-size: inherit;
+  font-family: inherit;
+  border: 1px solid rgb(235, 233, 233);
+  width: 50%;
+  border-radius: 10px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  flex-wrap: wrap;
+  border-style: solid;
+  border-color: rgba(56, 56, 56, 0);
+}
+
+.media-card {
+  display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width:150px;
-  height:250px;
-  box-shadow: 2px 2px 2px 2px;
-
-  background-color:lightpink;
+  padding: 0.25em;
+  width: 170px;
+  height: 250px;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  background-color: rgba(182, 121, 163, 0.301);
 }
 
-.moviePic{
-  
-  width:92px
+.media-card h3 {
+  font-size: 0.75em;
 }
 
-button{
- width: 50px;
- font-size: 4px;
- border-style: solid;
+.movie-pic {
+  width: 92px;
 }
-.buttons{
-    display:flex;
-    flex-direction: row;
-    width: 150px;
-    height: 25px;
-    border-radius: 10px;
-    font-size: 4px;
-    background-color: lightgreen;
 
-    
-   }
+button {
+  background-color: #fff;
+  border: 1px solid #d5d9d9;
+  width: 75%;
+  font-size: 10px;
+  margin: 1px;
+  box-sizing: border-box;
+  color: #0f1111;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 10px 0 11px;
+  text-decoration: none;
+  user-select: none;
+  touch-action: manipulation;
+  width: 120px;
+}
 
-   .picTitle{
-     display:flex;
-     flex-direction:column;
-     align-items: center;
+button:focus {
+  border-color: #008296;
+  box-shadow: rgba(213, 217, 217, 0.5) 0 2px 5px 0;
+  outline: 0;
+}
 
-   }
+button:hover {
+  background-color: rgba(1, 4, 160, 0.26);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pic-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.movie-pic {
+  cursor: pointer;
+}
