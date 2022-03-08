@@ -12,15 +12,15 @@ const BodyContainer = (props) => {
     <div className="body-container">
       <input className="search-bar" placeholder="Search..." autoFocus></input>
 
-      <h2>watchlist</h2>
+      <h1>Watchlist</h1>
       <CardContainer
         movieList={props.movieList.filter((movie) => movie.toWatch === true)}
       />
-      <h2>favorites</h2>
+      <h1>Favorites</h1>
       <CardContainer
         movieList={props.movieList.filter((movie) => movie.fav === true)}
       />
-      <h2>recently watched</h2>
+      <h1>Recently Watched</h1>
       <CardContainer
         movieList={props.movieList.filter((movie) => movie.haveSeen === true)}
       />
