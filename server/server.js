@@ -1,60 +1,61 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const mongoose = require('mongoose');
-const path = require('path');
+const mongoose = require("mongoose");
+const path = require("path");
 const PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../build')));
+app.use(express.static(path.join(__dirname, "../build")));
 
-const userController = require('./controllers/userController.js');
+const userController = require("./controllers/userController.js");
 
 // NEED CONTROLLER
+
 const MONGO_URI =
-  'mongodb+srv://movie:fads@cluster0.h4vty.mongodb.net/movieFadsDB';
+  "mongodb+srv://chloecourt:moviefads@cluster0.2rbmk.mongodb.net/moviefads?retryWrites=true&w=majority";
 mongoose
   .connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: 'Users',
+    dbName: "Users",
   })
-  .then(() => console.log('Connected to MongoDB'))
+  .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
 
 // ROUTE HANDLERS
 //add POST USER endpoint to add new user to database
-app.post('/user', userController.createUser, (req, res) => {
+app.post("/user", userController.createUser, (req, res) => {
   return res.status(200).json(res.locals.createUser);
 });
 
 //add GET USER endpoint
-app.get('/:username', userController.getUser, (req, res) => {
+app.get("/:username", userController.getUser, (req, res) => {
   return res.status(200).json(res.locals.user);
 });
 
 //remote DELETE USER endpoint
-app.delete('/:username', userController.deleteUser, (req, res) => {
+app.delete("/:username", userController.deleteUser, (req, res) => {
   return res.status(200).send(`User Deleted! : ${res.locals.deleteUser}`);
 });
 
 //add PUT Media endpoint to update user's media list array
-app.put('/:username', userController.addMedia, (req, res) => {
+app.put("/:username", userController.addMedia, (req, res) => {
   return res.status(200).json(res.locals.addedMedia);
 });
 
-app.put('/changeMedia/:username', userController.updateMedia, (req, res) => {
+app.put("/changeMedia/:username", userController.updateMedia, (req, res) => {
   return res.status(200).json(res.locals.updatedMedia);
 });
 
 // Unknown route handler
-app.get('*', (req, res) => res.status(404).send('Page not Found'));
+app.get("*", (req, res) => res.status(404).send("Page not Found"));
 
 // Global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
-    log: 'Express error handler caught unknown middleware error',
+    log: "Express error handler caught unknown middleware error",
     status: 400,
-    message: { err: 'An error occurred' },
+    message: { err: "An error occurred" },
   };
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(errorObj.log);

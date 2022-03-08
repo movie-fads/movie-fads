@@ -1,19 +1,34 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import CardContainer from './CardContainer.jsx';
+import React from "react";
+import { connect } from "react-redux";
+import CardContainer from "./CardContainer.jsx";
 
 const mapStateToProps = (state) => ({
   movieList: state.lists.userMovieArray,
 });
 
 const BodyContainer = (props) => {
-  console.log('rendering body container', props.movieList);
+  const handleKeyUp = (e) => {
+    //event.charCode === 13 handle's clicking enter in search bar
+    if (e.keyCode == 13) {
+      console.log("enter was clicked");
+      console.log(`what was typed in search: ${e.target.value}`);
+    }
+  };
+
+  console.log("rendering body container", props.movieList);
   return (
+    // * Need an event handler to handle search queries
     <div className="body-container">
-      <input className="search-bar" placeholder="Search..." autoFocus></input>
+      <input
+        className="search-bar"
+        placeholder="Search..."
+        onKeyUp={(e) => handleKeyUp(e)}
+        autoFocus
+      ></input>
 
       <h1>Watchlist</h1>
       <CardContainer
+        //movieList is an array of objects that is pulled from the api and placed as a collection in the database in the backend
         movieList={props.movieList.filter((movie) => movie.toWatch === true)}
       />
       <h1>Favorites</h1>

@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import * as privateVars from '../constants/private.js';
+import React, { useEffect, useState } from "react";
+import * as privateVars from "../constants/private.js";
 
 const Poster = (props) => {
-  let [BaseImageURL, setBaseImageURL] = useState('');
-  let [PosterPath, setPosterPath] = useState('');
+  let [BaseImageURL, setBaseImageURL] = useState("");
+  let [PosterPath, setPosterPath] = useState("");
   let [OriginalTitle, setOriginalTitle] = useState(null);
-  let [setConfigData] = useState('');
-  let [BaseURL] = useState('https://api.themoviedb.org/3/');
-  let [PosterSize] = useState('w92');
+  let [setConfigData] = useState("");
+  let [BaseURL] = useState("https://api.themoviedb.org/3/");
+  let [PosterSize] = useState("w92");
 
   //! Will want to move this function into an action and mapDispatchToProps
   //! Instead of define within useEffect itself
   useEffect(() => {
-    let configUrl = ''.concat(
+    let configUrl = "".concat(
       BaseURL,
-      'configuration?api_key=',
+      "configuration?api_key=",
       privateVars.apiKey
     );
     fetch(configUrl)
@@ -24,13 +24,13 @@ const Poster = (props) => {
         setConfigData(data.images);
       });
 
-    let url = ''.concat(
+    let url = "".concat(
       BaseURL,
-      'movie/',
+      "movie/",
       props.tmdbId,
-      '?api_key=',
+      "?api_key=",
       privateVars.apiKey,
-      '&langauge=en-US'
+      "&langauge=en-US"
     );
     fetch(url)
       .then((result) => result.json())
