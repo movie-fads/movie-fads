@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useState } from 'react';
 import { connect } from "react-redux";
 import CardContainer from "./CardContainer.jsx";
+import MediaCard from '../components/MediaCard.jsx';
 
 const mapStateToProps = (state) => ({
   movieList: state.lists.userMovieArray,
 });
 
 const BodyContainer = (props) => {
+  const [movie, setMovie] = useState('');
+
   const handleKeyUp = (e) => {
     //event.charCode === 13 handle's clicking enter in search bar
     if (e.keyCode == 13) {
-      console.log("enter was clicked");
-      console.log(`what was typed in search: ${e.target.value}`);
+      // console.log("enter was clicked");
+      // console.log(`what was typed in search: ${e.target.value}`);
+      const movieTitle = e.target.value;
+
+      fetch(`https://api.themoviedb.org/3/search/movie?api_key=b77e6bcb363054a49df8e588ecd2fdc6&query=${movieTitle}`)
+        .then((res) => res.json())
+        .then(data => {
+          console.log('incoming data', data.results[0])
+          setMovie(data.results[0])
+        })
+        .catch((err) => { console.log('failed fetch') })
     }
   };
 
@@ -25,6 +37,8 @@ const BodyContainer = (props) => {
         onKeyUp={(e) => handleKeyUp(e)}
         autoFocus
       ></input>
+
+      {movie !== '' ? <MediaCard key={`searchMovie`} tmdbId={movie.id} /> : null}
 
       <h1>Watchlist</h1>
       <CardContainer

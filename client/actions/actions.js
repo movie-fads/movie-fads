@@ -5,13 +5,18 @@ export const fetchUserMovieList = (username) => {
     console.log('at fetch movie action');
     dispatch(fetchUserMovieListStarted());
     console.log('dispatched fetch start action');
-    fetch(`http://localhost:3000/${username}`)
-      .then((data) => {
-        console.log('fetch data: ', data);
-        return data.json();
+    fetch(`/${username}`)
+      .then((res) => {
+        console.log('fetch data: ', res);
+        return res.json();
       })
-      .then((res) => dispatch(fetchUserMovieListSuccess(res)))
-      .catch((err) => dispatch(fetchUserMovieListFailure(err)));
+      .then((data) => {
+        console.log('check this', data)
+        dispatch(fetchUserMovieListSuccess(data))
+      })
+      .catch((err) => { console.log('Im in the error') 
+      dispatch(fetchUserMovieListFailure(err))
+    });
   };
 };
 

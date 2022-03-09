@@ -5,9 +5,9 @@ const Poster = (props) => {
   let [BaseImageURL, setBaseImageURL] = useState("");
   let [PosterPath, setPosterPath] = useState("");
   let [OriginalTitle, setOriginalTitle] = useState(null);
-  let [setConfigData] = useState("");
   let [BaseURL] = useState("https://api.themoviedb.org/3/");
-  let [PosterSize] = useState("w92");
+  const PosterSize = "w92";
+
 
   //! Will want to move this function into an action and mapDispatchToProps
   //! Instead of define within useEffect itself
@@ -17,12 +17,16 @@ const Poster = (props) => {
       "configuration?api_key=",
       privateVars.apiKey
     );
+
+    console.log('configUrl:', configUrl);
+
+    // Get BaseImgUrl
     fetch(configUrl)
       .then((result) => result.json())
       .then((data) => {
+        console.log(data, 'fetch from configURl')
         setBaseImageURL(data.images.secure_base_url);
-        setConfigData(data.images);
-      });
+      }).catch(err => console.log('failed config fetch'))
 
     let url = "".concat(
       BaseURL,
@@ -32,14 +36,19 @@ const Poster = (props) => {
       privateVars.apiKey,
       "&langauge=en-US"
     );
+
+    // Get PosterPath
     fetch(url)
       .then((result) => result.json())
       .then((data) => {
+        console.log('this is inside PosterPath:', data);
         setPosterPath(data.poster_path);
         setOriginalTitle(data.original_title);
         // console.log(data);
-      });
-  }, []);
+      })
+      .catch((err) => { console.log('Err getting poster path:', err) });
+
+  }, [props.tmdbId]);
 
   return (
     <div className="pic-title">

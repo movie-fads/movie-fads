@@ -17,7 +17,7 @@ mongoose
   .connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: "Users",
+    dbName: "moviefads",
   })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
@@ -25,6 +25,7 @@ mongoose
 // ROUTE HANDLERS
 //add POST USER endpoint to add new user to database
 app.post("/user", userController.createUser, (req, res) => {
+  console.log("sent to chloe's database");
   return res.status(200).json(res.locals.createUser);
 });
 
@@ -46,6 +47,12 @@ app.put("/:username", userController.addMedia, (req, res) => {
 app.put("/changeMedia/:username", userController.updateMedia, (req, res) => {
   return res.status(200).json(res.locals.updatedMedia);
 });
+
+//add to movie to favorites
+// app.put("/addFavorite/:id/:userId", userController.addMedia, userController.updateMedia, (req, res) => {
+//   return res.status(200).json(res.locals.newFavorite);
+// });
+
 
 // Unknown route handler
 app.get("*", (req, res) => res.status(404).send("Page not Found"));

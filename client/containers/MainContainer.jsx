@@ -7,15 +7,15 @@ import * as actions from "../actions/actions.js";
 const mapDispatchToProps = (dispatch) => ({
   loadMovies: (username) => dispatch(actions.fetchUserMovieList(username)),
 });
+
 // running dispatch load movies
 // hard coding user to David
 // immediately loading david's account with useEffect
 const MainContainer = (props) => {
   useEffect(() => {
-    console.log("inside MainContainer useEffect");
     //! no need to hard code argument for loadMovies once username has been saved in state
     //! follwoing authentication stage (to be implemented)
-    return props.loadMovies("David");
+    return props.loadMovies("chloe");
   }, []);
 
   return (
