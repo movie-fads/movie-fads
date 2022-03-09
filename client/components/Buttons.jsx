@@ -28,12 +28,6 @@ const Buttons = (props) => {
 
     const options = {
       method: "PUT",
-      body: catagory,
-    };
-
-    fetch("/chloe", options)
-      .then((res) => res.json())
-      .then(() => props.loadMovies("chloe"));
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(category),
     };
@@ -46,7 +40,6 @@ const Buttons = (props) => {
   const buttons = [];
   if (props.button1) // add to watchlist 
     buttons.push(
-      <button type="button" onClick={handleClick("toWatch")}>
       <button type="button" onClick={() => handleClick("toWatch")}>
         {props.button1}
       </button>
@@ -60,7 +53,6 @@ const Buttons = (props) => {
     );
   if (props.button3) // 
     buttons.push(
-      <button type="button" onClick={() => handleCick("havSeen")}>
       <button type="button" onClick={() => handleClick("haveSeen")}>
         {" "}
         {props.button3}

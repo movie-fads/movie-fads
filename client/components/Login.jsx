@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 import { useState } from "react";
 // const dotenv = require("dotenv");
-const { OAuth2Client } = require("google-auth-library");
+// const { OAuth2Client } = require("google-auth-library");
 
 const REACT_APP_GOOGLE_CLIENT_ID =
   "645822534725-ck9p7n5ofoih2olrh9td6rnoo656aklt.apps.googleusercontent.com";
@@ -65,6 +65,7 @@ const Login = (props) => {
             cookiePolicy={"single_host_origin"}
           ></GoogleLogin>
         )}
+        <button onClick={() => navigate('/app')}>Go to main page</button>
       </div>
     </div>
 
