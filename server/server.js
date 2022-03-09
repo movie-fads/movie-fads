@@ -53,7 +53,6 @@ app.put("/changeMedia/:username", userController.updateMedia, (req, res) => {
 //   return res.status(200).json(res.locals.newFavorite);
 // });
 
-
 // Unknown route handler
 app.get("*", (req, res) => res.status(404).send("Page not Found"));
 
