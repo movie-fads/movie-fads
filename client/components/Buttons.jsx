@@ -6,15 +6,18 @@ const mapDispatchToProps = (dispatch) => ({
   loadMovies: (username) => dispatch(actions.fetchUserMovieList(username)),
 });
 
-//! Buttons need on click functions
-//! Functions will dispatch actoins, through mapDispatchToProps
+// ! Buttons need on click functions
+// ! Functions will dispatch actoins, through mapDispatchToProps
 const Buttons = (props) => {
   const handleClick = (input) => {
-    const catagory = {};
+    const category = {};
+
+    console.log("tmdbId:", props.tmdbId);
+    category.TMDBid = props.tmdbId;
 
     switch (input) {
       case "toWatch":
-        catagory.toWatch = true;
+        category.toWatch = true;
         break;
       case "fav":
         category.fav = true;
@@ -25,22 +28,25 @@ const Buttons = (props) => {
 
     const options = {
       method: "PUT",
-      body: catagory,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(category),
     };
 
-    fetch("/chloe", options)
-      .then((res) => res.json())
-      .then(() => props.loadMovies("chloe"));
+    fetch(props.urlBase + "chloe", options)
+      .then(() => props.loadMovies("chloe"))
+      .catch((err) => console.log("This err is in button:", err));
   };
 
   const buttons = [];
   if (props.button1)
+    // add to watchlist
     buttons.push(
-      <button type="button" onClick={handleClick("toWatch")}>
+      <button type="button" onClick={() => handleClick("toWatch")}>
         {props.button1}
       </button>
     );
   if (props.button2)
+    // add to favorites
     buttons.push(
       <button type="button" onClick={() => handleClick("fav")}>
         {" "}
@@ -48,8 +54,9 @@ const Buttons = (props) => {
       </button>
     );
   if (props.button3)
+    //
     buttons.push(
-      <button type="button" onClick={() => handleCick("havSeen")}>
+      <button type="button" onClick={() => handleClick("haveSeen")}>
         {" "}
         {props.button3}
       </button>
