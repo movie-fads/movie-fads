@@ -51,8 +51,11 @@ const Poster = (props) => {
   }, [props.tmdbId]);
 
   return (
-    <div className="pic-title">
+    <div className="pic-title" >
       <img
+        onClick={() =>
+          window.open(`https://www.themoviedb.org/movie/${props.tmdbId}`)
+        }
         className="movie-pic"
         src={BaseImageURL + PosterSize + PosterPath}
         alt={OriginalTitle}
