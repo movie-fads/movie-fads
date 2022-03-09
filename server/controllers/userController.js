@@ -57,6 +57,9 @@ const userController = {
     */
   async addMedia(req, res, next) {
     //req.body is { TMDBid: 70, fav: true }
+    console.log('params:', req.params);
+    console.log('body:', req.body);
+    
     try {
       const template = {
         TMDBid: req.body.TMDBid,
@@ -65,6 +68,8 @@ const userController = {
         fav: false,
       };
       template[Object.keys(req.body)[1]] = true;
+
+      console.log('template:', template);
 
       const result = await UserDb.updateOne(
         { username: req.params.username },
@@ -84,6 +89,9 @@ const userController = {
   // UPDATE MEDIA (PUT)
   async updateMedia(req, res, next) {
     // { TMDBid: 70, fav: true }
+
+    console.log('req.body', req.body)
+
     try {
       let result;
 
@@ -105,6 +113,7 @@ const userController = {
 
           { $set: { 'arrMediaObj.$.toWatch': req.body.toWatch } }
         );
+        console.log('result', result);
       } else if (req.body.hasOwnProperty('haveSeen')) {
         result = await UserDb.updateOne(
           {
@@ -115,6 +124,18 @@ const userController = {
           { $set: { 'arrMediaObj.$.haveSeen': req.body.haveSeen } }
         );
       }
+
+      // check if all properties are false and if so delete from database
+      const doc = await UserDb.findOne({username: req.params.username});
+      const newList = doc.arrMediaObj.filter((obj) => obj.haveSeen || obj.toWatch || obj.fav);
+      doc.arrMediaObj = newList;
+      await doc.save();
+
+      // UserDb.updateMany(
+      //   { },
+      //   { $pull: { arrMediaObj: { $elemMatch: { haveSeen: false, toWatch: false, fav: false } } } }
+      // )
+
       res.locals.updatedMedia = result;
       return next();
     } catch (err) {
@@ -126,5 +147,7 @@ const userController = {
     }
   },
 };
+
+
 
 module.exports = userController;
