@@ -3,14 +3,25 @@ const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const PORT = 3000;
+const userController = require("./controllers/userController.js");
+// const dotenv = require('dotenv')
+// const {OAuth2Client} = require('google-auth-library')
+// const { REACT_APP_GOOGLE_CLIENT_ID } = require('../client/constants/private.js')
+
+// dotenv.config()
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../build")));
 
-const userController = require("./controllers/userController.js");
+ 
+app.post('/api/google-login', userController.GoogleAuth, userController.createUser, (req, res) => {
+  const { name, picture } = res.locals
+  return res.status(201).json({ name, picture })
+
+})
 
 // NEED CONTROLLER
-
 const MONGO_URI =
   "mongodb+srv://chloecourt:moviefads@cluster0.2rbmk.mongodb.net/moviefads?retryWrites=true&w=majority";
 mongoose

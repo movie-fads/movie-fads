@@ -3,8 +3,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  username: { type: String, required: true },
-  userID: { type: String, required: false },
+  email: {type: String, required: true},
+  name: { type: String, required: true },
+  picture: String,
   // searchedMedia: {type: }
   // Includes users watch list, favs and recently watched categories
   arrMediaObj: { type: Array, required: true },
