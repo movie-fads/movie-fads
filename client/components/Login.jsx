@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "../styles/login.css";
 import { useNavigate } from "react-router-dom";
 import GoogleLogin from "react-google-login";
@@ -19,6 +19,21 @@ const Login = (props) => {
   //     ? JSON.parse(localStorage.getItem("loginData"))
   //     : null
   // );
+
+  useEffect(() => {
+    const cookies = document.cookie.split('secret=');
+    let email = cookies[cookies.length - 1];
+    email = email.replace('%40', '@'); 
+    console.log('email', email);
+    fetch('verifyUser/' + email)
+      .then(res => res.json())
+      .then(data => {
+        if (data) { 
+          setUserData(data);         
+          navigate('/app'); 
+        }
+      })
+  }, [])
 
   const handleLogout = () => {
     // localStorage.removeItem("loginData");
@@ -43,7 +58,7 @@ const Login = (props) => {
     const data = await res.json();
     // setLoginData(data);
     setUserData(data)
-  
+
     // await localStorage.setItem("loginData", JSON.stringify(data));
     navigate('/app')
   };

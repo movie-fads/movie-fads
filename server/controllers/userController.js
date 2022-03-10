@@ -20,7 +20,7 @@ const userController = {
       res.locals.name = name;
       res.locals.email = email;
       res.locals.picture = picture;
-      next();
+      return next();
     }
     catch(err) {
       return next({
@@ -36,7 +36,6 @@ const userController = {
     
     try {
       const user = await UserDb.findOne({email})
-      console.log('user logs in :', user)
       if (user) {
         res.locals.createUser = user;
         return next();
@@ -53,11 +52,24 @@ const userController = {
       });
     }
   },
-
+  
+  async verifyUser(req, res, next) {
+    try {
+      const user = await UserDb.findOne({ email: req.params.email });
+      res.locals.user = user;
+      return next();
+    } catch (err) {
+      return next({
+        log: `getUser controller had an error. ${err}`,
+        status: 401,
+        message: { err: 'An error occurred when finding a user' },
+      });
+    }
+  },
 
   async getUser(req, res, next) {
     try {
-      const result = await UserDb.findOne({ name: req.params.username });
+      const result = await UserDb.findOne({ username: req.params.username });
       res.locals.user = result;
       return next();
     } catch (err) {
@@ -182,7 +194,14 @@ const userController = {
       });
     }
   },
+
+  setCookie(req, res, next){
+    // write code here
+    res.cookie('secret',`${res.locals.email}`);
+    return next();
+  }
 };
+
 
 
 

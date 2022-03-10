@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { connect, useStore } from "react-redux";
 import * as actions from "../actions/actions.js";
 import {UserDataContext} from "../context.js"
+import Logo from '../images/logo/ShowTimeLogo.jpg'
+import Account from "../components/Account.jsx"; 
 
 const mapDispatchToProps = (dispatch) => ({
   loadMovies: (username) => dispatch(actions.fetchUserMovieList(username)),
@@ -22,13 +24,24 @@ const MainContainer = (props) => {
     return props.loadMovies(userData.name);
   }, []);
 
+  /*
+    style={{backgroundImage: `url(${backgroundImage})`}
+  */
+
   return (
     //! HeadContainer component goes here
-    <div className="main-container">
-      <h1>Movie Fads</h1>
-      <h2>{userData?.name}</h2>
-      <img src={userData?.picture} />
-      <BodyContainer />
+    //header
+    <div className="outerMainContainer">
+      <div className="module">
+        <h2 className="stripes"><img className="logo" src={Logo} alt="Logo" />  </h2>
+      
+      </div>
+      <Account />
+      {/* <div style={{backgroundImage: `url(${logo})`, width:"200px", height: "200px"}}> </div> */}
+      <div className="main-container">
+        <h1>Movie Fads</h1>
+        <BodyContainer />
+      </div>
     </div>
     //! FooterContainer component goes here
   );

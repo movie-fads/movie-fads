@@ -41,11 +41,11 @@ const MediaCard = (props) => {
   return (
     <div className="media-card">
       <div className="mediaCard">
-        <button class='deleteCategory' onClick={()=> handleClick()} >X</button> 
         <Poster key={`poster ${props.key}`} tmdbId={props.tmdbId} />
       </div>
       <div className="buttons">
         <Buttons urlBase='changeMedia/' tmdbId={props.tmdbId}/>
+        <button className='deleteCategory' onClick={()=> handleClick()} >X</button> 
       </div>
     </div>
   );

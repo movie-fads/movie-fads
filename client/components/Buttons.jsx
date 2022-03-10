@@ -42,20 +42,20 @@ const Buttons = (props) => {
   const buttons = [];
   if (props.button1) // add to watchlist 
     buttons.push(
-      <button type="button" onClick={() => handleClick("toWatch")}>
+      <button key="button1" type="button" onClick={() => handleClick("toWatch")}>
         {props.button1}
       </button>
     );
   if (props.button2) // add to favorites
     buttons.push(
-      <button type="button" onClick={() => handleClick("fav")}>
+      <button key="button2" type="button" onClick={() => handleClick("fav")}>
         {" "}
         {props.button2}
       </button>
     );
   if (props.button3) // 
     buttons.push(
-      <button type="button" onClick={() => handleClick("haveSeen")}>
+      <button key="button3" type="button" onClick={() => handleClick("haveSeen")}>
         {" "}
         {props.button3}
       </button>
