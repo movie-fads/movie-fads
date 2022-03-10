@@ -57,8 +57,7 @@ const userController = {
     */
   async addMedia(req, res, next) {
     //req.body is { TMDBid: 70, fav: true }
-    console.log('params:', req.params);
-    console.log('body:', req.body);
+    console.log('this is addMedia')
     
     try {
       const template = {
@@ -89,9 +88,7 @@ const userController = {
   // UPDATE MEDIA (PUT)
   async updateMedia(req, res, next) {
     // { TMDBid: 70, fav: true }
-
-    console.log('req.body', req.body)
-
+    console.log('this is updateMedia');
     try {
       let result;
 
