@@ -3,7 +3,7 @@ import "../styles/login.css";
 import { useNavigate } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 import { useState } from "react";
-import { UserDataContext } from "../context.js"
+import { UserDataContext } from "../context.js";
 // const dotenv = require("dotenv");
 // const { OAuth2Client } = require("google-auth-library");
 
@@ -11,7 +11,7 @@ const REACT_APP_GOOGLE_CLIENT_ID =
   "645822534725-ck9p7n5ofoih2olrh9td6rnoo656aklt.apps.googleusercontent.com";
 
 const Login = (props) => {
-  const [ userData, setUserData ] = useContext(UserDataContext);
+  const [userData, setUserData] = useContext(UserDataContext);
   const navigate = useNavigate();
 
   // const [loginData, setLoginData] = useState(
@@ -21,19 +21,21 @@ const Login = (props) => {
   // );
 
   useEffect(() => {
-    const cookies = document.cookie.split('secret=');
+    const cookies = document.cookie.split("secret=");
     let email = cookies[cookies.length - 1];
-    email = email.replace('%40', '@'); 
-    console.log('email', email);
-    fetch('verifyUser/' + email)
-      .then(res => res.json())
-      .then(data => {
-        if (data) { 
-          setUserData(data);         
-          navigate('/app'); 
+    email = email.replace("%40", "@");
+
+    fetch("verifyUser/" + email)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          console.log("this is the current user", data);
+          setUserData(data);
+          navigate("/app");
         }
       })
-  }, [])
+      .catch((err) => console.log("Error in verifyUser fetch req:", err));
+  }, []);
 
   const handleLogout = () => {
     // localStorage.removeItem("loginData");
@@ -43,7 +45,7 @@ const Login = (props) => {
   const handleFailure = (result) => {
     alert(result);
   };
-  
+
   const handleLogin = async (googleData) => {
     const res = await fetch("/api/google-login", {
       method: "POST",
@@ -57,10 +59,10 @@ const Login = (props) => {
 
     const data = await res.json();
     // setLoginData(data);
-    setUserData(data)
+    setUserData(data);
 
     // await localStorage.setItem("loginData", JSON.stringify(data));
-    navigate('/app')
+    navigate("/app");
   };
 
   return (
@@ -87,9 +89,7 @@ const Login = (props) => {
         )}
       </div>
     </div>
-
   );
-
 };
 
 export default Login;

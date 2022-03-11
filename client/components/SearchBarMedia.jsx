@@ -4,21 +4,21 @@ import * as actions from "../actions/actions.js";
 import Poster from "./Poster.jsx";
 import Buttons from "./Buttons.jsx";
 
-const mapDispatchToProps = (dispatch) => ({
-  loadMovies: (username) => dispatch(actions.fetchUserMovieList(username)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   loadMovies: (username) => dispatch(actions.fetchUserMovieList(username)),
+// });
 
-const MediaCard = (props) => {
+const SearchBarMedia = (props) => {
   return (
     <div className="media-card">
       <div className="mediaCard">
         <Poster key={`poster ${props.key}`} tmdbId={props.tmdbId} />
       </div>
       <div className="buttons">
-        <Buttons urlBase='/' tmdbId={props.tmdbId}/>
+        <Buttons urlBase="/" tmdbId={props.tmdbId} />
       </div>
     </div>
   );
 };
 
-export default connect(null, mapDispatchToProps)(MediaCard);
+export default SearchBarMedia;

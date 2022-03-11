@@ -1,7 +1,9 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions/actions.js";
 import { UserDataContext } from "../context.js";
+import watchLaterSmall from "../images/logo/watchLater.svg";
+
 const mapDispatchToProps = (dispatch) => ({
   loadMovies: (username) => dispatch(actions.fetchUserMovieList(username)),
 });
@@ -10,11 +12,9 @@ const mapDispatchToProps = (dispatch) => ({
 //! Functions will dispatch actoins, through mapDispatchToProps
 const Buttons = (props) => {
   const userData = useContext(UserDataContext)[0];
-  console.log('user data', userData)
   const handleClick = (input) => {
     const category = {};
 
-    console.log("tmdbId:", props.tmdbId);
     category.TMDBid = props.tmdbId;
 
     switch (input) {
@@ -40,22 +40,33 @@ const Buttons = (props) => {
   };
 
   const buttons = [];
-  if (props.button1) // add to watchlist 
+  if (props.button1 && props.currRow !== "toWatch")
+    // add to watchlist
     buttons.push(
-      <button key="button1" type="button" onClick={() => handleClick("toWatch")}>
+      <button
+        key="button1"
+        type="button"
+        onClick={() => handleClick("toWatch")}
+      >
         {props.button1}
       </button>
     );
-  if (props.button2) // add to favorites
+  if (props.button2 && props.currRow !== "fav")
+    // add to favorites
     buttons.push(
       <button key="button2" type="button" onClick={() => handleClick("fav")}>
         {" "}
         {props.button2}
       </button>
     );
-  if (props.button3) // 
+  if (props.button3 && props.currRow !== "haveSeen")
+    //
     buttons.push(
-      <button key="button3" type="button" onClick={() => handleClick("haveSeen")}>
+      <button
+        key="button3"
+        type="button"
+        onClick={() => handleClick("haveSeen")}
+      >
         {" "}
         {props.button3}
       </button>
