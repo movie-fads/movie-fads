@@ -40,11 +40,7 @@ const Buttons = (props) => {
   };
 
   const buttons = [];
-<<<<<<< HEAD
-  if (props.button1)
-=======
   if (props.button1 && props.currRow !== "toWatch")
->>>>>>> 142476d65dc3baba9642ab069db6d40ed89b2d8b
     // add to watchlist
     buttons.push(
       <button
@@ -55,11 +51,7 @@ const Buttons = (props) => {
         {props.button1}
       </button>
     );
-<<<<<<< HEAD
-  if (props.button2)
-=======
   if (props.button2 && props.currRow !== "fav")
->>>>>>> 142476d65dc3baba9642ab069db6d40ed89b2d8b
     // add to favorites
     buttons.push(
       <button key="button2" type="button" onClick={() => handleClick("fav")}>
@@ -67,11 +59,7 @@ const Buttons = (props) => {
         {props.button2}
       </button>
     );
-<<<<<<< HEAD
-  if (props.button3)
-=======
   if (props.button3 && props.currRow !== "haveSeen")
->>>>>>> 142476d65dc3baba9642ab069db6d40ed89b2d8b
     //
     buttons.push(
       <button
