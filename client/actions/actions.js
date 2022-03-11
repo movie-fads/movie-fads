@@ -1,22 +1,25 @@
-import * as types from '../constants/actionTypes.js';
+import * as types from "../constants/actionTypes.js";
 
 export const fetchUserMovieList = (username) => {
   return (dispatch) => {
     // console.log('at fetch movie action');
     dispatch(fetchUserMovieListStarted());
     // console.log('dispatched fetch start action');
+
+    console.log("username in action.js ", username);
+
     fetch(`/${username}`)
       .then((res) => {
-        console.log('fetch data: ', res);
         return res.json();
       })
       .then((data) => {
-        console.log('check this', data)
-        dispatch(fetchUserMovieListSuccess(data))
+        console.log("this is the data inside fetchUserMovieList", data);
+        dispatch(fetchUserMovieListSuccess(data));
       })
-      .catch((err) => { console.log('Im in the error:', err) 
-      dispatch(fetchUserMovieListFailure(err))
-    });
+      .catch((err) => {
+        console.log("Im in the error:", err);
+        dispatch(fetchUserMovieListFailure(err));
+      });
   };
 };
 

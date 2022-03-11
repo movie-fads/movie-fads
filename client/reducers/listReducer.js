@@ -1,4 +1,4 @@
-import * as types from '../constants/actionTypes.js';
+import * as types from "../constants/actionTypes.js";
 
 const initialState = {
   currentUserID: null,
@@ -9,10 +9,8 @@ const initialState = {
 };
 
 const listReducer = (state = initialState, action) => {
-  console.log('at list reducer');
   switch (action.type) {
     case types.FETCH_USER_MOVIE_LIST_SUCCESS: {
-      console.log('at fetch user movie list success switch case');
       const userMovieArray = action.payload.arrMediaObj;
       return {
         ...state,
@@ -20,8 +18,6 @@ const listReducer = (state = initialState, action) => {
       };
     }
     default: {
-      console.log('returning default state');
-      console.log(state);
       return state;
     }
   }
