@@ -1,10 +1,47 @@
 const UserDb = require('../model/mediaModel.js');
+const findOrCreate = require('mongoose-find-or-create');
+const User = require('../model/mediaModel.js');
+const {OAuth2Client} = require('google-auth-library')
 
 const userController = {
   // createUser - Add username, Add arrMediaObj as an empty array (POST)
+
+  async GoogleAuth(req, res, next) {
+    const client = new OAuth2Client('REACT_APP_GOOGLE_CLIENT_ID=645822534725-ck9p7n5ofoih2olrh9td6rnoo656aklt.apps.googleusercontent.com')
+    try{
+      // console.log(req.body)
+      const { token } = req.body;
+      const ticket = await client.verifyIdToken({
+        idToken: token,
+        audience: process.env.CLIENT_ID
+      })
+      // console.log('ticket payload:', ticket.getPayload())
+      const { name, email, picture } = ticket.getPayload();
+      res.locals.name = name;
+      res.locals.email = email;
+      res.locals.picture = picture;
+      return next();
+    }
+    catch(err) {
+      return next({
+        log: `google auth has a fatal error. ${err}`,
+        status: 401,
+        message: { err: 'An error occurred when verifing Google Acount' },
+      });
+    }
+  },
+
   async createUser(req, res, next) {
+    const { name, email, picture } = res.locals
+    
     try {
-      const result = await UserDb.create({ username: req.body.username });
+      const user = await UserDb.findOne({email})
+      if (user) {
+        res.locals.createUser = user;
+        return next();
+      }
+
+      const result = await UserDb.create({ name, email, picture });
       res.locals.createUser = result;
       return next();
     } catch (err) {
@@ -12,6 +49,20 @@ const userController = {
         log: `createUser controller had an error. ${err}`,
         status: 401,
         message: { err: 'An error occurred when creating a new user' },
+      });
+    }
+  },
+  
+  async verifyUser(req, res, next) {
+    try {
+      const user = await UserDb.findOne({ email: req.params.email });
+      res.locals.user = user;
+      return next();
+    } catch (err) {
+      return next({
+        log: `getUser controller had an error. ${err}`,
+        status: 401,
+        message: { err: 'An error occurred when finding a user' },
       });
     }
   },
@@ -34,7 +85,7 @@ const userController = {
   async deleteUser(req, res, next) {
     try {
       const result = await UserDb.findOneAndDelete({
-        username: req.params.username,
+        name: req.params.username,
       });
       res.locals.deleteUser = result;
       return next();
@@ -71,7 +122,7 @@ const userController = {
       console.log('template:', template);
 
       const result = await UserDb.updateOne(
-        { username: req.params.username },
+        { name: req.params.username },
         { $push: { arrMediaObj: template } }
       );
       res.locals.addedMedia = result;
@@ -95,7 +146,7 @@ const userController = {
       if (req.body.hasOwnProperty('fav')) {
         result = await UserDb.updateOne(
           {
-            username: req.params.username,
+            name: req.params.username,
             arrMediaObj: { $elemMatch: { TMDBid: { $eq: req.body.TMDBid } } },
           },
 
@@ -104,7 +155,7 @@ const userController = {
       } else if (req.body.hasOwnProperty('toWatch')) {
         result = await UserDb.updateOne(
           {
-            username: req.params.username,
+            name: req.params.username,
             arrMediaObj: { $elemMatch: { TMDBid: { $eq: req.body.TMDBid } } },
           },
 
@@ -114,7 +165,7 @@ const userController = {
       } else if (req.body.hasOwnProperty('haveSeen')) {
         result = await UserDb.updateOne(
           {
-            username: req.params.username,
+            name: req.params.username,
             arrMediaObj: { $elemMatch: { TMDBid: { $eq: req.body.TMDBid } } },
           },
 
@@ -123,7 +174,7 @@ const userController = {
       }
 
       // check if all properties are false and if so delete from database
-      const doc = await UserDb.findOne({username: req.params.username});
+      const doc = await UserDb.findOne({name: req.params.username});
       const newList = doc.arrMediaObj.filter((obj) => obj.haveSeen || obj.toWatch || obj.fav);
       doc.arrMediaObj = newList;
       await doc.save();
@@ -143,7 +194,14 @@ const userController = {
       });
     }
   },
+
+  setCookie(req, res, next){
+    // write code here
+    res.cookie('secret',`${res.locals.email}`);
+    return next();
+  }
 };
+
 
 
 

@@ -1,2 +1,4 @@
 export const apiKey = 'b77e6bcb363054a49df8e588ecd2fdc6'
 export const apiToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNzdlNmJjYjM2MzA1NGE0OWRmOGU1ODhlY2QyZmRjNiIsInN1YiI6IjYyMjc5ODkwZTkyZDgzMDA0ODNmNDdlMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gvvVUONpaha-x_qFX6Va8oVkgmcUTDiJfFadRIL2-t0'
+
+export const CLIENT_ID = 'REACT_APP_GOOGLE_CLIENT_ID=645822534725-ck9p7n5ofoih2olrh9td6rnoo656aklt.apps.googleusercontent.com'

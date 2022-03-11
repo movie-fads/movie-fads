@@ -6,7 +6,7 @@ const Poster = (props) => {
   let [PosterPath, setPosterPath] = useState("");
   let [OriginalTitle, setOriginalTitle] = useState(null);
   let [BaseURL] = useState("https://api.themoviedb.org/3/");
-  const PosterSize = "w92";
+  const PosterSize = "w200";
 
 
   //! Will want to move this function into an action and mapDispatchToProps

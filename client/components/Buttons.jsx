@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useContext} from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions/actions.js";
-
+import { UserDataContext } from "../context.js";
 const mapDispatchToProps = (dispatch) => ({
   loadMovies: (username) => dispatch(actions.fetchUserMovieList(username)),
 });
@@ -9,6 +9,8 @@ const mapDispatchToProps = (dispatch) => ({
 // ! Buttons need on click functions
 // ! Functions will dispatch actoins, through mapDispatchToProps
 const Buttons = (props) => {
+  const userData = useContext(UserDataContext)[0];
+  console.log('user data', userData)
   const handleClick = (input) => {
     const category = {};
 
@@ -32,8 +34,8 @@ const Buttons = (props) => {
       body: JSON.stringify(category),
     };
 
-    fetch(props.urlBase + "chloe", options)
-      .then(() => props.loadMovies("chloe"))
+    fetch(props.urlBase + userData.name, options)
+      .then(() => props.loadMovies(userData.name))
       .catch((err) => console.log("This err is in button:", err));
   };
 
@@ -41,14 +43,14 @@ const Buttons = (props) => {
   if (props.button1)
     // add to watchlist
     buttons.push(
-      <button type="button" onClick={() => handleClick("toWatch")}>
+      <button key="button1" type="button" onClick={() => handleClick("toWatch")}>
         {props.button1}
       </button>
     );
   if (props.button2)
     // add to favorites
     buttons.push(
-      <button type="button" onClick={() => handleClick("fav")}>
+      <button key="button2" type="button" onClick={() => handleClick("fav")}>
         {" "}
         {props.button2}
       </button>
@@ -56,7 +58,7 @@ const Buttons = (props) => {
   if (props.button3)
     //
     buttons.push(
-      <button type="button" onClick={() => handleClick("haveSeen")}>
+      <button key="button3" type="button" onClick={() => handleClick("haveSeen")}>
         {" "}
         {props.button3}
       </button>

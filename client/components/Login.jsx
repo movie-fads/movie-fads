@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "../styles/login.css";
 import { useNavigate } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 import { useState } from "react";
+import { UserDataContext } from "../context.js"
 // const dotenv = require("dotenv");
 // const { OAuth2Client } = require("google-auth-library");
 
@@ -10,22 +11,39 @@ const REACT_APP_GOOGLE_CLIENT_ID =
   "645822534725-ck9p7n5ofoih2olrh9td6rnoo656aklt.apps.googleusercontent.com";
 
 const Login = (props) => {
+  const [ userData, setUserData ] = useContext(UserDataContext);
   const navigate = useNavigate();
 
-  const [loginData, setLoginData] = useState(
-    localStorage.getItem("loginData")
-      ? JSON.parse(localStorage.getItem("loginData"))
-      : null
-  );
+  // const [loginData, setLoginData] = useState(
+  //   localStorage.getItem("loginData")
+  //     ? JSON.parse(localStorage.getItem("loginData"))
+  //     : null
+  // );
+
+  useEffect(() => {
+    const cookies = document.cookie.split('secret=');
+    let email = cookies[cookies.length - 1];
+    email = email.replace('%40', '@'); 
+    console.log('email', email);
+    fetch('verifyUser/' + email)
+      .then(res => res.json())
+      .then(data => {
+        if (data) { 
+          setUserData(data);         
+          navigate('/app'); 
+        }
+      })
+  }, [])
 
   const handleLogout = () => {
-    localStorage.removeItem("loginData");
-    setLoginData(null);
+    // localStorage.removeItem("loginData");
+    // setUserData(null);
   };
 
   const handleFailure = (result) => {
     alert(result);
   };
+  
   const handleLogin = async (googleData) => {
     const res = await fetch("/api/google-login", {
       method: "POST",
@@ -38,9 +56,11 @@ const Login = (props) => {
     });
 
     const data = await res.json();
-    setLoginData(data);
+    // setLoginData(data);
+    setUserData(data)
 
-    localStorage.setItem("loginData", JSON.stringify(data));
+    // await localStorage.setItem("loginData", JSON.stringify(data));
+    navigate('/app')
   };
 
   return (
@@ -49,7 +69,7 @@ const Login = (props) => {
         <h1>MOVIE APP</h1>
       </header>
       <div className="loginContainer">
-        {loginData ? (
+        {props.userData ? (
           <div>
             {" "}
             <div>loggedOut</div>
@@ -65,58 +85,11 @@ const Login = (props) => {
             cookiePolicy={"single_host_origin"}
           ></GoogleLogin>
         )}
-        <button onClick={() => navigate('/app')}>Go to main page</button>
       </div>
     </div>
 
-    /* <div className="Login">
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="//fonts.googleapis.com/css?family=Roboto:400"
-        />
-        <div className="google-btn">
-          <div className="google-icon-wrapper">
-            <img
-              className="google-icon-svg"
-              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-            />
-          </div>
-          <p className="btn-text">
-            <b>Sign in with Google</b>
-          </p>
-        </div>
-        <div className="google-btn">
-          <div className="google-icon-wrapper">
-            <img
-              className="google-icon-svg"
-              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-            />
-          </div>
-          <p className="btn-text">
-            <b>Sign up with Google</b>
-          </p>
-        </div>
-        <div className="google-btn">
-          <div className="google-icon-wrapper">
-            <img
-              className="google-icon-svg"
-              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-            />
-          </div>
-          <p className="btn-text">
-            <b>Continue with Google</b>
-          </p>
-        </div>
-        <div className="normal-btn">
-          <p className="btn-text">
-            <b onClick={() => navigate("/app")}>Button</b>
-          </p>
-        </div>
-      </div> */
   );
 
-  // );
 };
 
 export default Login;

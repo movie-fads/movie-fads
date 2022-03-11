@@ -3,14 +3,28 @@ const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const PORT = 3000;
+const userController = require("./controllers/userController.js");
+// const dotenv = require('dotenv')
+// const {OAuth2Client} = require('google-auth-library')
+// const { REACT_APP_GOOGLE_CLIENT_ID } = require('../client/constants/private.js')
+
+// dotenv.config()
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../build")));
 
-const userController = require("./controllers/userController.js");
+app.post('/api/google-login', userController.GoogleAuth, userController.createUser, userController.setCookie, (req, res) => {
+  const { name, picture } = res.locals
+  return res.status(201).json({ name, picture })
+})
+
+// handle rerouting to login page
+app.get('/app', (req, res) => {
+  return res.redirect('/')
+});
 
 // NEED CONTROLLER
-
 const MONGO_URI =
   "mongodb+srv://chloecourt:moviefads@cluster0.2rbmk.mongodb.net/moviefads?retryWrites=true&w=majority";
 mongoose
@@ -25,9 +39,12 @@ mongoose
 // ROUTE HANDLERS
 //add POST USER endpoint to add new user to database
 app.post("/user", userController.createUser, (req, res) => {
-  console.log("sent to chloe's database");
   return res.status(200).json(res.locals.createUser);
 });
+
+app.get('/verifyUser/:email',userController.verifyUser, (req, res)=> {
+  return res.status(200).json(res.locals.user); 
+}); 
 
 //add GET USER endpoint
 app.get("/:username", userController.getUser, (req, res) => {
@@ -48,13 +65,14 @@ app.put("/changeMedia/:username", userController.updateMedia, (req, res) => {
   return res.status(200).json(res.locals.updatedMedia);
 });
 
+
 //add to movie to favorites
 // app.put("/addFavorite/:id/:userId", userController.addMedia, userController.updateMedia, (req, res) => {
 //   return res.status(200).json(res.locals.newFavorite);
 // });
 
 // Unknown route handler
-app.get("*", (req, res) => res.status(404).send("Page not Found"));
+// app.get("*", (req, res) => res.redirect('/'));
 
 // Global error handler
 app.use((err, req, res, next) => {
