@@ -8,8 +8,8 @@ const mapDispatchToProps = (dispatch) => ({
   loadMovies: (username) => dispatch(actions.fetchUserMovieList(username)),
 });
 
-//! Buttons need on click functions
-//! Functions will dispatch actoins, through mapDispatchToProps
+// ! Buttons need on click functions
+// ! Functions will dispatch actoins, through mapDispatchToProps
 const Buttons = (props) => {
   const userData = useContext(UserDataContext)[0];
   const handleClick = (input) => {

@@ -21,56 +21,26 @@ const BodyContainer = (props) => {
     <h2>We got nothing</h2>,
   ]);
 
-  const getRecs = async (genres) => {
-    const recListArray = [];
-    let max;
-    for (const keys in genres) {
-      if (!max) max = keys;
-      else if (genres[keys] > genres[max]) {
-        max = keys;
-      }
-    }
-
-    const movie = await fetch(
-      `https://api.themoviedb.org/3/discover/movie?api_key=b77e6bcb363054a49df8e588ecd2fdc6&language=en-US&sort_by=popularity.desc&with_genres=${max}`
-    )
-      .then((res) => res.json())
-      .then((movieData) => {
-        return movieData;
-      })
-      .catch((err) => console.log("failed fetch:", err));
-    recListArray.push(movie);
-    if (!recListArray.length) console.log("need to favorite more");
-
-    setRecList(recListArray);
-  };
-
-  const getFavsGenres = async (favList) => {
+  const getRecs = async (favList) => {
     const genreCache = {};
+    const recListArray = [];
     for (let i = 0; i < favList.length; i++) {
       const movieData = await fetch(
-        `https://api.themoviedb.org/3/movie/${favList[i].TMDBid}?api_key=b77e6bcb363054a49df8e588ecd2fdc6`
+        `https://api.themoviedb.org/3/movie/${favList[i].TMDBid}/similar?api_key=b77e6bcb363054a49df8e588ecd2fdc6`
       )
         .then((res) => res.json())
         .then((movieData) => {
           return movieData;
         });
-      for (let i = 0; i < movieData.genres.length; i++) {
-        if (genreCache.hasOwnProperty(movieData.genres[i].name)) {
-          genreCache[movieData.genres[i].name]++;
-        } else {
-          genreCache[movieData.genres[i].name] = 1;
-        }
-      }
+      recListArray.push(movieData);
     }
-    return genreCache;
+    if (!recListArray.length) console.log("need to favorite more");
+
+    setRecList(recListArray);
   };
 
   useEffect(async () => {
-    let genres = await getFavsGenres(
-      props.movieList.filter((movie) => movie.fav === true)
-    );
-    getRecs(genres);
+    getRecs(props.movieList.filter((movie) => movie.fav === true));
   }, [props.movieList]);
 
   const clearSearchList = (e) => {
@@ -83,9 +53,6 @@ const BodyContainer = (props) => {
       )
         .then((res) => res.json())
         .then((data) => {
-          // if (!data.results.length) {
-          //   document.querySelector(".search-bar").value = "";
-          // } else setSearchBarMovies(data.results.slice(0, 3));
           if (data.results.length) setSearchBarMovies(data.results.slice(0, 3));
         })
         .catch((err) => console.log("failed fetch:", err));
