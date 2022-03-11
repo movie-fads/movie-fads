@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../actions/actions.js";
 import Poster from "./Poster.jsx";
 import Buttons from "./Buttons.jsx";
-import {UserDataContext} from "../context.js"
+import { UserDataContext } from "../context.js";
 
 const mapDispatchToProps = (dispatch) => ({
   loadMovies: (username) => dispatch(actions.fetchUserMovieList(username)),
@@ -14,7 +14,7 @@ const MediaCard = (props) => {
 
   const handleClick = () => {
     const { tmdbId, currRow } = props;
-    const category = {TMDBid: tmdbId}; 
+    const category = { TMDBid: tmdbId };
 
     switch (currRow) {
       case "toWatch":
@@ -36,7 +36,7 @@ const MediaCard = (props) => {
     fetch("changeMedia/" + userData.name, options)
       .then(() => props.loadMovies(userData.name))
       .catch((err) => console.log("This err is in button:", err));
-  }; 
+  };
 
   return (
     <div className="media-card">
@@ -44,8 +44,14 @@ const MediaCard = (props) => {
         <Poster key={`poster ${props.key}`} tmdbId={props.tmdbId} />
       </div>
       <div className="buttons">
-        <Buttons urlBase='changeMedia/' tmdbId={props.tmdbId}/>
-        <button className='deleteCategory' onClick={()=> handleClick()} >X</button> 
+        <Buttons
+          urlBase="changeMedia/"
+          tmdbId={props.tmdbId}
+          currRow={props.currRow}
+        />
+        <button className="deleteCategory" onClick={handleClick}>
+          Delete
+        </button>
       </div>
     </div>
   );
