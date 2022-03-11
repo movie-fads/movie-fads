@@ -1,0 +1,31 @@
+
+:root{
+  --color-red: #ea2529;
+  --color-white: #fff;
+  --color-gold: #c4ae62;
+  --color-background: #222;
+}
+
+
+.module {
+  background: white;
+  // border: 1px solid #ccc;
+  margin: 3%;
+  > h2 {
+    padding: 1rem;
+    margin: 0 0 0.5rem 0;
+  }
+  
+}
+
+
+.stripes {
+  color: black;
+  background: repeating-linear-gradient(
+    to right,
+    var(--color-red),
+    var(--color-red) 10px,
+    var(--color-white) 10px,
+    var(--color-white) 20px
+  );
+}
