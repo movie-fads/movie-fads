@@ -8,10 +8,10 @@ Our application will analyze your favorited films and give you recommendations o
 
 We hope you enjoy this application.
 
+
 Possible features for future iterations. 
 - allow users to share between other users their favorite movies
 - statistics on how many other users favorites the same movie
-
 
 
 
