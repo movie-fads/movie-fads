@@ -23,8 +23,23 @@ Movie fads is a site for movie lovers to search, select and organize movies to f
 ![]() 
 
 ## Technologies
-[React](https://reactjs.org/) | [Express.js](https://expressjs.com/) | [PostgreSQL](https://www.postgresql.org/)
+[React](https://reactjs.org/) | [Redux/Redux Thunk](https://redux.js.org/) | [Express.js](https://expressjs.com/) | [MongoDB/Mongoose](https://www.mongodb.com/) | [Google OAuth](https://developers.google.com/identity/protocols/oauth2)
 
+***
+
+## The movie fads Team
+<hr>
+
+> Alex Corlin [@acorlin](https://github.com/acorlin6) <br />
+> Alex Haile [@ahaile923](https://github.com/ahaile923)
+> Chloe Courtois [@chloecourt](https://github.com/chloecourt) <br />
+> David Sharfi [@djs42012](https://github.com/djs42012) <br />
+> Fernando Luna [@lunaf-github](https://github.com/lunaf-github) <br />
+> Janson Xavier [@JansonXavier](https://github.com/JansonXavier) <br />
+> Kris Sorensen [@kris-sorensen](https://github.com/kris-sorensen) <br />
+> Sophia Sam  [@sophiasam96](https://github.com/sophiasam96) <br />
+
+<hr>
 
 ## Future Contibutions
 We hope you enjoy this application. If you found this interesting or helpful at all, feel free to drop a :star: [![GitHub stars](https://img.shields.io/github/stars/movie-fads/movie-fads?style=social&label=Star&)](https://github.com/movie-fads/movie-fads/stargazers) :star: on this project to show your support!
