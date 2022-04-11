@@ -1,4 +1,4 @@
-![](/) 
+![](/client/images/logo/move-fads-title.png) 
 
 <h2 align="center">Movie organizer and recommender</h2>
 
@@ -23,7 +23,7 @@ Movie fads is a site for movie lovers to search, select and organize movies to f
 **Login Page**
 ![](/client/images/gifs/movie-fads_login.gif) 
 
-***Features**
+**Features**
 ![](/client/images/gifs/movie-fads-demo.gif)
 
 ## Technologies
