@@ -14,9 +14,8 @@ Movie fads is a site for movie lovers to search, select and organize movies to f
 
 1. Fork and clone this repository.
 2. ```npm install```
-3. ```npm run serve```
-4. ```npm start```
-5. Login with google authentication for easy access. 
+3. ```npm run conc```
+4. Login with google authentication for easy access. 
 
 
 ## Demo
