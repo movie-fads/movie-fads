@@ -19,8 +19,12 @@ Movie fads is a site for movie lovers to search, select and organize movies to f
 5. Login with google authentication for easy access. 
 
 
-## Demo  
-![]() 
+## Demo
+**Login Page**
+![](/client/images/gifs/movie-fads_login.gif) 
+
+***Features**
+![](/client/images/gifs/movie-fads-demo.gif)
 
 ## Technologies
 [React](https://reactjs.org/) | [Redux/Redux Thunk](https://redux.js.org/) | [Express.js](https://expressjs.com/) | [MongoDB/Mongoose](https://www.mongodb.com/) | [Google OAuth](https://developers.google.com/identity/protocols/oauth2)
